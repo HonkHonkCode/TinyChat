@@ -8,9 +8,10 @@ namespace TinyChat.src.Services
 {
     public class AuthService
     {
+        WebService webService = new WebService();
+
         protected string Username;
         protected string Password;
-
 
         protected Dictionary<String, String> getLoginData()
         {
@@ -30,18 +31,7 @@ namespace TinyChat.src.Services
 
         protected Dictionary<String, String> getAuthenticationHeaders()
         {
-            Dictionary<string, string> AuthenticationHeaders = new Dictionary<string, string>()
-            {
-                { "Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8" },
-                { "Origin", "http://tinychat.com" },
-                { "User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36 OPR/32.0.1948.25" },
-                { "Content-Type", "application/x-www-form-urlencoded" },
-                { "Referer", "http://tinychat.com/login?frame=true" },
-                { "Accept-Encoding", "gzip, deflate, lzma" },
-                { "Accept-Language", "en-US,en;q=0.8" }
-            };
-
-            return AuthenticationHeaders;
+            return new Dictionary<string, string>();
         }
 
         protected string getAuthenticationUrl()
@@ -54,7 +44,9 @@ namespace TinyChat.src.Services
             this.Username = Username;
             this.Password = Password;
 
-            return true;
+            string response = webService.post(this.getAuthenticationUrl(), this.getLoginData());
+
+            return response == "";
         }
 
 

@@ -13,10 +13,19 @@ namespace TinyChat.src.Models
         Error = 3
     }
 
+    [Serializable]
     public class Account
     {
-        public string Username { set; get; }
-        public string Password { set; get; }
-        public AuthenticationStatus AuthStatus { set; get; }
+        public string Username;
+        public string Password;
+
+        [NonSerialized]
+        public AuthenticationStatus AuthStatus = AuthenticationStatus.NotAuthenticated;
+
+
+        public override string ToString()
+        {
+            return this.Username;
+        }
     }
 }
